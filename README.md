@@ -68,10 +68,10 @@ sudo apt-get update
 sudo apt-get install cuda-latest_version
 
 # Clone the base repository
-git clone <repository-url>
+git clone https://github.com/anvithalolla/Video_Summarization_API.git
 
 # Navigate to the repository directory
-cd <repository-name>
+cd Video_Summarization_API
 
 # Install required dependencies
 pip install -r requirements.txt

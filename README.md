@@ -31,7 +31,7 @@ The Video Summarization API is designed to handle 600 requests per day, processi
 
 ## Getting Started
 
-This section guides you through the initial setup and configuration needed to start using VidSummarizer. The setup involves creating an AWS EC2 instance, configuring it with the necessary hardware and software, and setting up the base repository.
+This section guides you through the initial setup and configuration needed to start using Video Summarizer. The setup involves creating an AWS EC2 instance, configuring it with the necessary hardware and software, and setting up the base repository.
 
 ### Step 1: AWS EC2 Instance Setup
 
@@ -78,7 +78,7 @@ pip install -r requirements.txt
 
 ## Pre-Training
 
-VidSummarizer offers pre-trained models that are readily available for download. These models can be used for immediate video summarization without the need for training from scratch. If you prefer to train your own models, you may skip this section.
+Video Summarizer offers pre-trained models that are readily available for download. These models can be used for immediate video summarization without the need for training from scratch. If you prefer to train your own models, you may skip this section.
 
 ### Downloading Pre-trained Models
 
@@ -161,7 +161,7 @@ To run the inference process, follow these steps:
     ```
     Replace `<PUBLIC_DNS>` with your instance's public DNS. Then, run the inference command again with your test video as the source.
 
-By following these instructions, you can leverage VidSummarizer's pre-trained models for efficient video summarization.
+By following these instructions, you can leverage Video Summarizer's pre-trained models for efficient video summarization.
 
 
 ## API Usage
@@ -195,14 +195,14 @@ Upon successful completion and upload of the summarized video, an Amazon SNS top
 
 ![image](https://github.com/anvithalolla/Video_Summarization_API/assets/55392153/3d765679-b905-40c4-ae3b-b81159125190)
 
-This diagram illustrates the flow of data and interactions between different AWS services, providing a clear view of how VidSummarizer processes each video summarization request from start to finish.
+This diagram illustrates the flow of data and interactions between different AWS services, providing a clear view of how Video Summarizer processes each video summarization request from start to finish.
 
-By employing this architecture, VidSummarizer ensures a seamless and scalable solution to video summarization, capable of handling multiple requests concurrently and efficiently.
+By employing this architecture, Video Summarizer ensures a seamless and scalable solution to video summarization, capable of handling multiple requests concurrently and efficiently.
 .
 
 ## Implementation Phases
 
-This section outlines the key steps involved in setting up and configuring the VidSummarizer system, including AWS services like Lambda, SQS, and API Gateway.
+This section outlines the key steps involved in setting up and configuring the Video Summarizer system, including AWS services like Lambda, SQS, and API Gateway.
 
 ### Phase 1: Setting Up AWS IAM Role
 
@@ -380,7 +380,7 @@ The final output (output.mp4) is a summarized version of the input video, signif
 
 ## Contributing
 
-We welcome contributions to enhance VideoSummAPI's functionality and performance. Please refer to the contributing guidelines for more details.
+We welcome contributions to enhance Video Summarizer API's functionality and performance. Please refer to the contributing guidelines for more details.
 
 ## License
 

@@ -200,11 +200,130 @@ By employing this architecture, VidSummarizer ensures a seamless and scalable so
 
 ## Implementation Phases
 
-1. **Initial Setup**: Creation of an AWS EC2 instance, installation of CUDA, and setup of the base repository.
-2. **Model Preparation**: Downloading and extracting pre-trained models for video summarization.
-3. **AWS Integration**: Configuration of Lambda functions, API Gateway, SQS for request management, and SNS for notification handling.
-4. **Video Processing**: Implementation of video summarization logic on EC2 instances, with input/output managed via S3 buckets.
+This section outlines the key steps involved in setting up and configuring the VidSummarizer system, including AWS services like Lambda, SQS, and API Gateway.
 
+### Phase 1: Setting Up AWS IAM Role
+
+1. **Create a Role in AWS IAM**:
+    - Name the role `SQSBasicLambdaExecutionRole`.
+    - Attach the `AmazonSQSFullAccess` and `AWSLambdaBasicExecutionRole` policies.
+
+### Phase 2: Lambda Function Configuration
+
+1. **Create Lambda Function**:
+    - Navigate to AWS Lambda and create a new function named `VSApiProcessRequest`.
+    - Select Python 3.11 as the runtime.
+    - Assign the `SQSBasicLambdaExecutionRole` created earlier.
+
+2. **Lambda Function Configuration**:
+    - In the General Configuration, set the timeout to 1 minute.
+    - In Asynchronous Invocation, set the retry attempts to 0.
+
+### Phase 3: API Gateway Setup
+
+1. **Create API Gateway**:
+    - Choose REST API and name it `VS_API`.
+    - Create a new POST method linked to the `VSApiProcessRequest` Lambda function.
+
+2. **Deploy API**:
+    - Test the POST method to ensure it returns a "hello from lambda" message, confirming the setup is correct.
+
+### Phase 4: Lambda Function Code
+
+Implement the following code in the Lambda function to process requests, generate unique IDs, and update the SQS queue:
+
+```python
+import ast
+import json
+import random
+import string
+import boto3
+
+def lambda_handler(event, context):
+    # Parse the request body
+    body = ast.literal_eval(event['body'])
+    input_video = body['input']
+    model = body['model']
+    
+    # Generate a unique ID for the request
+    id = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
+    
+    # Initialize SQS client and update the queue
+    sqs = boto3.client('sqs')
+    sqs.send_message(
+        QueueUrl='[Your_SQS_Queue_URL]',
+        MessageBody=json.dumps({'id': id, 'input': input_video, 'model': model}),
+        MessageGroupId='[Your_Message_Group_ID]'
+    )
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps({'id': id})
+    }
+```
+### Phase 5: SQS Queue Setup
+
+- **Create SQS Queue**:
+    - Navigate to the Amazon SQS console and create a new FIFO queue named `Video_summarization_queue.fifo`.
+    - FIFO queues are designed to ensure that the order in which messages are sent and received is strictly preserved and that each message is processed exactly once.
+
+### Phase 6: S3 Bucket Preparation
+
+- **Create an S3 Bucket**:
+    - Go to the Amazon S3 console and create a new bucket for storing your input and output videos.
+    - Organize the bucket by creating two folders: `input` for incoming videos and `output` for the summarized videos.
+    - Upload your test video into the `input` folder for initial testing.
+
+### Phase 7: Testing and Validation
+
+- **API Gateway Testing**:
+    - In the Amazon API Gateway console, configure the request body for your API method to include the path to your test video and the model details: `{"input": "input/test.mp4", "model": {"type": "anchor-based", "name": "summe.yml.0.pt"}}`.
+    - Invoke the POST method to test the setup. Ensure that the Lambda function is triggered and that it interacts with the SQS queue as expected.
+
+### Phase 8: EC2 Instance Configuration and SNS Setup
+
+- **Configure EC2 Instance**:
+    - Assign an IAM role to your EC2 instance that grants it permissions similar to the Lambda function, including access to S3, SQS, and SNS services.
+
+- **SNS Topic Creation**:
+    - Create a new SNS topic named `VS_SNS` using the Amazon SNS console. This topic will be used to notify the API endpoint or other subscribers upon the completion of the video summarization process.
+
+### Phase 9: Processing Queue Data
+
+- **Implement a Processing Script on EC2**:
+    - Develop a script to be run on the EC2 instance that continuously polls the SQS queue for new messages.
+    - For each message, the script should download the input video from the S3 bucket, process it using the video summarization algorithm, and then upload the summarized video back to the S3 bucket in the `output` folder.
+    - After processing, the script should publish a notification to the `VS_SNS` topic with details about the completed job.
+
+```python
+import time
+import boto3
+import os
+
+sqs = boto3.client('sqs', region_name='YOUR_REGION')
+s3 = boto3.client('s3', region_name='YOUR_REGION')
+sns = boto3.client('sns', region_name='YOUR_REGION')
+
+queue_url = 'YOUR_SQS_QUEUE_URL'
+s3_bucket = 'YOUR_S3_BUCKET_NAME'
+
+while True:
+    messages = sqs.receive_message(QueueUrl=queue_url, MaxNumberOfMessages=1, WaitTimeSeconds=20)
+    if 'Messages' in messages:
+        for message in messages['Messages']:
+            body = message['Body']
+            # Process the message and video summarization
+            
+            # Upload summarized video to S3
+            
+            # Publish notification to SNS
+            
+            # Delete the message from the queue
+            sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=message['ReceiptHandle'])
+    else:
+        print('No messages, sleeping...')
+        time.sleep(10)
+```
 ## AWS Services Used
 
 - **EC2**: For running the video summarization models and processing tasks.

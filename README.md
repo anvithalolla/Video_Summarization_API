@@ -42,7 +42,50 @@ The VideoSummAPI is designed to handle 600 requests per day, processing input vi
 
 ## Getting Started
 
-Set up your AWS environment according to the provided guidelines, ensuring all necessary services are correctly configured. Deploy the API and follow the instructions to start processing video summarization tasks.
+This section guides you through the initial setup and configuration needed to start using VidSummarizer. The setup involves creating an AWS EC2 instance, configuring it with the necessary hardware and software, and setting up the base repository.
+
+### Step 1: AWS EC2 Instance Setup
+
+1. **Create an EC2 Instance**:
+    - Log into your AWS Management Console and navigate to the EC2 Dashboard.
+    - Launch a new instance and select the **p2.xlarge** instance type for optimal performance with video summarization tasks. Note: This instance type is necessary for its GPU capabilities, which are essential for processing video data efficiently.
+
+2. **Increase Capacity**:
+    - By default, AWS accounts might have limitations on the usage of certain instance types. If you encounter a limit for the **p2.xlarge** instances, request an increase in capacity through AWS Support.
+
+3. **Key-Pair Configuration**:
+    - During the instance setup, create a new key-pair named `video_summarization_key`. This key will be used to securely connect to your instance.
+    - Download the key-pair and convert it to `.ppk` format using a tool like PuTTYgen if you're on Windows. This format is required for PuTTY, a SSH client used to connect to the instance.
+
+### Step 2: Connecting to Your Instance
+
+1. **Use PuTTY for SSH Connection**:
+    - Open PuTTY and input your instance's public IP address in the `Host Name (or IP address)` field.
+    - Navigate to `Connection > SSH > Auth` in the PuTTY configuration menu. Browse and select your `.ppk` key file under `Private key file for authentication`.
+
+2. **Remote Terminal Access**:
+    - Once the configuration is set, open the connection to access the remote terminal of your EC2 instance.
+
+### Step 3: Environment Setup
+
+In the remote terminal, execute the following commands to set up your environment:
+
+```bash
+# Update your instance's package repository
+sudo apt-get update
+
+# Install CUDA (replace 'latest_version' with the actual version number)
+sudo apt-get install cuda-latest_version
+
+# Clone the base repository
+git clone <repository-url>
+
+# Navigate to the repository directory
+cd <repository-name>
+
+# Install required dependencies
+pip install -r requirements.txt
+
 
 ## API Usage
 

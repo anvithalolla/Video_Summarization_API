@@ -1,4 +1,4 @@
-# Video Summarization API With DSNet Using PyTorch and AWS
+# Video Summarization API With DSNet Using PyTorch, OpenCV and AWS
 
 Video Summarization API leverages deep learning and AWS infrastructure to provide an efficient, scalable solution for summarizing video content. This project is inspired by the DSNet paper and aims to make video content more accessible and manageable by extracting and presenting key segments, saving time and resources for users.
 

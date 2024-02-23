@@ -1,6 +1,6 @@
 # Video Summarization API With DSNet Using PyTorch and AWS
 
-VideoSummAPI leverages deep learning and AWS infrastructure to provide an efficient, scalable solution for summarizing video content. This project is inspired by the DSNet paper and aims to make video content more accessible and manageable by extracting and presenting key segments, saving time and resources for users.
+Video Summarization API leverages deep learning and AWS infrastructure to provide an efficient, scalable solution for summarizing video content. This project is inspired by the DSNet paper and aims to make video content more accessible and manageable by extracting and presenting key segments, saving time and resources for users.
 
 ## Table of Contents
 
@@ -19,13 +19,15 @@ VideoSummAPI leverages deep learning and AWS infrastructure to provide an effici
 
 ![image](https://github.com/anvithalolla/Video_Summarization_API/assets/55392153/995d4d01-4234-49de-9093-98ac384c8a34)
 
-The VideoSummAPI is designed to handle 600 requests per day, processing input videos stored in S3 buckets and utilizing various AWS services for a fully integrated cloud solution.
+The Video Summarization API is designed to handle 600 requests per day, processing input videos stored in S3 buckets and utilizing various AWS services for a fully integrated cloud solution.
 
 ## Prerequisites
 
 - AWS Account with CLI configured
-- Python 3.7+
-- Access to AWS EC2, S3, Lambda, API Gateway, SQS, SNS
+- `Python 3.8+`
+- `PyTorch`
+- `OpenCV`
+- Access to AWS `EC2`, `S3`, `Lambda`, `API Gateway`, `SQS`, `SNS`
 
 ## Getting Started
 

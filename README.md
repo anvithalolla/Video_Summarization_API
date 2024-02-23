@@ -13,7 +13,6 @@ Video Summarization API leverages deep learning and AWS infrastructure to provid
 - [AWS Services Used](#aws-services-used)
 - [Output](#output)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -378,14 +377,14 @@ while True:
 
 The final output (output.mp4) is a summarized version of the input video, significantly reduced in length while retaining essential content. This output is stored in an S3 bucket and accessible via a notification sent to the API endpoint.
 
-![Output Example](path/to/output_example_image.png)
 
 ## Contributing
 
-We welcome contributions to enhance Video Summarizer API's functionality and performance. Please refer to the contributing guidelines for more details.
+Contributions to Video Summarization API are welcome! If you'd like to contribute, please follow these steps:
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+1. Fork the repository to your own GitHub account.
+2. Create a new branch for your feature or bug fix.
+3. Commit your changes and push them to your fork.
+4. Submit a pull request with a clear description of your changes.
 
 

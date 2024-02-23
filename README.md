@@ -217,6 +217,7 @@ This section outlines the key steps involved in setting up and configuring the V
     - Navigate to AWS Lambda and create a new function named `VSApiProcessRequest`.
     - Select Python 3.11 as the runtime.
     - Assign the `SQSBasicLambdaExecutionRole` created earlier.
+
 ![image](https://github.com/anvithalolla/Video_Summarization_API/assets/55392153/8b4554e6-309e-4d50-88aa-67634ca4fb5b)
 
 2. **Lambda Function Configuration**:

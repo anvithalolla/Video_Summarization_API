@@ -18,7 +18,7 @@ Video Summarization API leverages deep learning and AWS infrastructure to provid
 
 ![image](https://github.com/anvithalolla/Video_Summarization_API/assets/55392153/995d4d01-4234-49de-9093-98ac384c8a34)
 
-The Video Summarization API is designed to handle 600 requests per day, processing input videos stored in S3 buckets and utilizing various AWS services for a fully integrated cloud solution.
+The Video Summarization API is designed to handle 600 requests per day, processing input videos that can be 720p, around 10 min long, around 50 MB large, MP4 format, which are stored in S3 buckets and utilizing various AWS services for a fully integrated cloud solution.
 
 Access the **DSNet: A Flexible Detect-to-Summarize Network for Video Summarization** [paper](https://ieeexplore.ieee.org/document/9275314)
 

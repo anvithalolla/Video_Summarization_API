@@ -168,9 +168,35 @@ Send a POST request with the video path and model selection to the API endpoint.
 
 ## System Design
 
-![System Architecture](path/to/system_architecture_image.png)
+Video Summarization employs a robust and scalable architecture to handle video summarization requests efficiently. The system is designed to be fully automated, leveraging various AWS services to manage the workflow from request to delivery.
 
-The system architecture utilizes AWS Lambda for immediate request acknowledgment and SQS for queue management, with EC2 instances processing video summarization tasks.
+### Overview
+
+The process begins when a user submits a video summarization request through an API built with Amazon API Gateway. This request triggers a Lambda function, which performs two critical actions:
+
+1. **Immediate Acknowledgment**: The Lambda function sends an immediate response back to the user, acknowledging the receipt of the request.
+2. **Queue Update**: The function updates an Amazon SQS queue specifically created to manage the video summarization tasks.
+
+### Continuous Polling and Processing
+
+An EC2 instance is dedicated to continuously polling this SQS queue for new requests. Upon receiving a new request, the EC2 instance performs the following steps:
+
+- **Video Download**: Retrieves the input video file from an Amazon S3 bucket.
+- **Summarization**: Initiates the video summarization process using pre-determined models and algorithms.
+- **Output Upload**: Once the summarization is complete, the output video is uploaded back to a designated S3 bucket for retrieval.
+
+### Notification System
+
+Upon successful completion and upload of the summarized video, an Amazon SNS topic is used to send a notification to the API endpoint. This notification contains details about the output video, such as its location in the S3 bucket, allowing the user to access the summarized content.
+
+### Architectural Diagram
+
+![image](https://github.com/anvithalolla/Video_Summarization_API/assets/55392153/3d765679-b905-40c4-ae3b-b81159125190)
+
+This diagram illustrates the flow of data and interactions between different AWS services, providing a clear view of how VidSummarizer processes each video summarization request from start to finish.
+
+By employing this architecture, VidSummarizer ensures a seamless and scalable solution to video summarization, capable of handling multiple requests concurrently and efficiently.
+.
 
 ## Implementation Phases
 

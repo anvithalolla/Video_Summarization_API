@@ -25,11 +25,11 @@ Access the **DSNet: A Flexible Detect-to-Summarize Network for Video Summarizati
 
 ## Prerequisites
 
-- AWS Account with CLI configured
+- `AWS` Account with CLI configured
 - `Python 3.8+`
 - `PyTorch`
 - `OpenCV`
-- Access to AWS `EC2`, `S3`, `Lambda`, `API Gateway`, `SQS`, `SNS`
+- Access to Amazon Web Services `EC2`, `S3`, `Lambda`, `API Gateway`, `SQS`, `SNS`
 
 ## Getting Started
 

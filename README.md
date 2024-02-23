@@ -6,7 +6,6 @@ VideoSummAPI leverages deep learning and AWS infrastructure to provide an effici
 
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
 - [Getting Started](#getting-started)
 - [API Usage](#api-usage)
 - [System Design](#system-design)
@@ -27,18 +26,6 @@ The VideoSummAPI is designed to handle 600 requests per day, processing input vi
 - AWS Account with CLI configured
 - Python 3.7+
 - Access to AWS EC2, S3, Lambda, API Gateway, SQS, SNS
-
-## Installation
-
-1. Clone the repository:
-    ```
-    git clone <repository-url>
-    cd <repository-name>
-    ```
-2. Install dependencies:
-    ```
-    pip install -r requirements.txt
-    ```
 
 ## Getting Started
 
@@ -85,7 +72,7 @@ cd <repository-name>
 
 # Install required dependencies
 pip install -r requirements.txt
-
+```
 
 ## API Usage
 

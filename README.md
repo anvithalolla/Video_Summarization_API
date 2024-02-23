@@ -296,6 +296,7 @@ def lambda_handler(event, context):
     - After processing, the script should publish a notification to the `VS_SNS` topic with details about the completed job.
 
 ```python
+# processQueue.py
 import time
 import ast
 import os
@@ -371,7 +372,7 @@ while True:
 
 ## Output
 
-The final output is a summarized version of the input video, significantly reduced in length while retaining essential content. This output is stored in an S3 bucket and accessible via a notification sent to the API endpoint.
+The final output (output.mp4) is a summarized version of the input video, significantly reduced in length while retaining essential content. This output is stored in an S3 bucket and accessible via a notification sent to the API endpoint.
 
 ![Output Example](path/to/output_example_image.png)
 

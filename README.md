@@ -7,7 +7,7 @@ VideoSummAPI leverages deep learning and AWS infrastructure to provide an effici
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
-- [API Usage](#api-usage)
+- [Pre-Training and API Usage](#pre-training)
 - [System Design](#system-design)
 - [Implementation Phases](#implementation-phases)
 - [AWS Services Used](#aws-services-used)
@@ -73,6 +73,94 @@ cd <repository-name>
 # Install required dependencies
 pip install -r requirements.txt
 ```
+
+## Pre-Training
+
+VidSummarizer offers pre-trained models that are readily available for download. These models can be used for immediate video summarization without the need for training from scratch. If you prefer to train your own models, you may skip this section.
+
+### Downloading Pre-trained Models
+
+We provide two types of pre-trained models: anchor-based and anchor-free. You can download and unzip these models using the following commands:
+
+- **Anchor-Based Model**:
+    ```
+    wget https://www.dropbox.com/s/0jwn4c1ccjjysrz/pretrain_ab_basic.zip
+    unzip pretrain_ab_basic.zip
+    ```
+
+- **Anchor-Free Model**:
+    ```
+    wget https://www.dropbox.com/s/2hjngmb0f97nxj0/pretrain_af_basic.zip
+    unzip pretrain_af_basic.zip
+    ```
+
+It's crucial to extract these pre-trained model archives for the subsequent video summarization tasks.
+
+### Environment Setup
+
+Before utilizing the pre-trained models, ensure your environment is correctly set up. This setup includes installing CUDA 11.0.4, Python 3.7, and other necessary dependencies.
+
+1. **CUDA Installation**:
+    Update your package list and remove any existing NVIDIA drivers before installing the new ones:
+    ```
+    sudo apt update
+    sudo apt-get --purge remove 'nvidia*'
+    sudo apt install nvidia-driver-450
+    sudo reboot
+    ```
+
+2. **Python 3.7 Installation**:
+    Update your package list, add the deadsnakes PPA for newer Python versions, and install Python 3.7 along with necessary packages:
+    ```
+    sudo apt update
+    sudo apt install software-properties-common
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt install python3.7
+    sudo apt install python3.7-distutils
+    sudo apt-get install python3.7-dev
+    ```
+
+3. **Clone Repository and Set Up Virtual Environment**:
+    After cloning the repository to your server, create a virtual environment using Python 3.7 and activate it:
+    ```
+    virtualenv venv --python=python3.7
+    source venv/bin/activate
+    ```
+
+4. **Install Dependencies**:
+    Navigate to your project directory and install the required Python packages. If you encounter any issues with Torch, install it first before proceeding with other requirements:
+    ```
+    cd DSNet  # Change to your project directory
+    pip install torch==1.1.0
+    pip install -r requirements.txt
+    ```
+
+### Running Inference
+
+To run the inference process, follow these steps:
+
+1. **Prepare the Model Directory**:
+    ```
+    mkdir -p models && cd models
+    ```
+
+2. **Execute Inference**:
+    Change the directory to `src` and run the inference script. If you encounter an import error with PIL, update torchvision to version 0.5.0:
+    ```
+    cd src  # Change to the src directory of your project
+    pip install torchvision==0.5.0  # Update torchvision if necessary
+    python infer.py anchor-free --ckpt-path ../models/pretrain_af_basic/checkpoint/summe.yml.0.pt --source ../custom_data/videos/EE-bNr36nyA.mp4 --save-path ./output.mp4
+    ```
+
+3. **Testing with Custom Video**:
+    To test with a custom video file, transfer it to your EC2 instance and run the inference script:
+    ```
+    scp -i ~/.ssh/aws-ft-key-pair.pem /path/to/test.mp4 ubuntu@<PUBLIC_DNS>:/path/to/DSNet/src/
+    ```
+    Replace `<PUBLIC_DNS>` with your instance's public DNS. Then, run the inference command again with your test video as the source.
+
+By following these instructions, you can leverage VidSummarizer's pre-trained models for efficient video summarization.
+
 
 ## API Usage
 
